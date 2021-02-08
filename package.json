@@ -13,7 +13,7 @@
     "@vitejs/plugin-vue": "^1.1.4",
     "@vue/compiler-sfc": "^3.0.5",
     "@vuedx/typecheck": "^0.6.0",
-    "@vuedx/typescript-plugin-vue": "^0.6.0",
+    "@vuedx/typescript-plugin-vue": "^0.6.3",
     "normalize.css": "^8.0.1",
     "postcss": "^8.2.5",
     "postcss-import": "^14.0.0",
