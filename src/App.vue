@@ -55,13 +55,6 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="uncontrolled-grid">
-    <MinorFaction
-      v-for="minorFaction in uncontrolledMinorFactions"
-      :key="minorFaction.minorFactionId"
-      :minorFactionId="minorFaction.minorFactionId"
-    />
-  </div>
   <div
     class="position-grid"
     v-for="[ position, minorFactions ] in controlledMinorFactionsByPosition"
@@ -73,7 +66,13 @@ export default defineComponent({
       :minorFactionId="minorFaction.minorFactionId"
     />
   </div>
-
+  <div class="uncontrolled-grid">
+    <MinorFaction
+      v-for="minorFaction in uncontrolledMinorFactions"
+      :key="minorFaction.minorFactionId"
+      :minorFactionId="minorFaction.minorFactionId"
+    />
+  </div>
 </template>
 
 <style lang="postcss">
@@ -109,15 +108,20 @@ export default defineComponent({
 }
 
 .uncontrolled-grid {
-  border: 2px dotted black;
   position: absolute;
   top: 50%;
   left: 10%;
   width: 90%;
-  height: 40%;
+  height: auto%;
   transform: translate(0, -50%);
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;
+
+  & > * {
+    width: 50%;
+    height: 50%;
+  }
 }
 </style>
