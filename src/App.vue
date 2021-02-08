@@ -57,33 +57,43 @@ export default defineComponent({
 </script>
 
 <template>
-  <div
-    class="position-grid"
-    v-for="[ position, minorFactions ] in controlledMinorFactionsByPosition"
-    :class="`position-${position}`"
-  >
-    <MinorFaction
-      v-for="minorFaction in minorFactions"
-      :key="minorFaction.minorFactionId"
-      :minorFactionId="minorFaction.minorFactionId"
-    />
-  </div>
+  <main>
+    <div
+      class="position-grid"
+      v-for="[ position, minorFactions ] in controlledMinorFactionsByPosition"
+      :class="`position-${position}`"
+    >
+      <MinorFaction
+        v-for="minorFaction in minorFactions"
+        :key="minorFaction.minorFactionId"
+        :minorFactionId="minorFaction.minorFactionId"
+      />
+    </div>
 
-  <div class="uncontrolled-grid">
-    <MinorFaction
-      v-for="minorFaction in uncontrolledMinorFactions"
-      :key="minorFaction.minorFactionId"
-      :minorFactionId="minorFaction.minorFactionId"
-    />
-  </div>
+    <div class="uncontrolled-grid">
+      <MinorFaction
+        v-for="minorFaction in uncontrolledMinorFactions"
+        :key="minorFaction.minorFactionId"
+        :minorFactionId="minorFaction.minorFactionId"
+      />
+    </div>
 
-  <div class="influence-die">
-    <InfluenceDie />
-  </div>
+    <div class="influence-die">
+      <InfluenceDie />
+    </div>
+  </main>
 </template>
 
 <style lang="postcss">
 @import './app.css';
+
+main {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  margin: 0 auto;
+  max-width: 80rem;
+}
 
 .position-grid {
   display: grid;

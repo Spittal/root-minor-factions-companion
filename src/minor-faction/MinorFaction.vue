@@ -96,6 +96,10 @@ export default defineComponent({
     color: white;
   }
 
+  & img {
+    width: 100%;
+  }
+
   & .marker {
     width: 30%;
   }

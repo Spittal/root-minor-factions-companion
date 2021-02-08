@@ -6,6 +6,7 @@ export default defineComponent({
     const currentSide = ref('/die/0-1.png');
     function getSide () {
       const number = Math.floor(Math.random() * 6);
+      console.log(`Rolled side ${number}`);
       switch (number) {
         default:
         case 1:
