@@ -3,6 +3,7 @@ import { ref } from "vue";
 export type MinorFaction = {
   id: number;
   title: string;
+  titleDimished: string;
   imageUrl: string;
   imageUrlDiminished: string;
 }
@@ -11,23 +12,28 @@ export type MinorFactionState = {
   minorFactionId: MinorFaction['id'];
   diminished: boolean;
   status: 'UNCONTROLLED' | 'CONTROLLED' | 'SECURED';
-  controllingPlayer?: number;
+  controllingPosition?: number;
 }
 
 export type GameState = {
   minorFactions: MinorFactionState[];
-  numberOfPlayers?: number;
+  numberOfPositions?: number;
 };
 
-const blankState: GameState = { minorFactions: [] }
+const blankState: GameState = { minorFactions: [], numberOfPositions: 2 }
 const gameState = ref<GameState>(blankState);
 
 export function useGameState () {
-  function setPlayers (numberOfPlayers: number) {
-    gameState.value.numberOfPlayers = numberOfPlayers;
+  function setPositions(numberOfPositions: number) {
+    gameState.value.numberOfPositions = numberOfPositions;
   }
 
-  function addMinorFaction (minorFactionId: number, diminished = false) {
+  function addMinorFaction(minorFactionId: number, diminished = false) {
+    if (gameState.value.minorFactions.find(minorFaction => minorFaction.minorFactionId === minorFactionId)) {
+      console.error('Minor faction already added');
+      return;
+    }
+
     gameState.value.minorFactions.push({
       minorFactionId,
       diminished: false,
@@ -38,7 +44,7 @@ export function useGameState () {
   return {
     gameState,
 
-    setPlayers,
+    setPositions,
     addMinorFaction,
   };
 }

@@ -15,6 +15,10 @@ export function useMinorFaction (minorFactionid: number) {
     };
   });
 
+  const title = computed(() => {
+    return (state.value?.diminished) ? minorFaction.value.titleDimished : minorFaction.value.title;
+  });
+
   const imageUrl = computed(() => {
     return (state.value?.diminished) ? minorFaction.value.imageUrlDiminished : minorFaction.value.imageUrl;
   });
@@ -24,20 +28,20 @@ export function useMinorFaction (minorFactionid: number) {
     if (state.value?.status === 'CONTROLLED') return '/controlled.png';
   });
 
-  function swayToPlayer (player: number) {
+  function swayToPosition (Position: number) {
     if (!state.value) return;
 
-    if (state.value.controllingPlayer === player) {
+    if (state.value.controllingPosition === Position) {
       if (state.value.status === 'CONTROLLED') state.value.status = 'SECURED';
-      else if (state.value.status === 'SECURED') console.warn(`Player ${player} already has secured ${minorFaction.value?.title}`);
+      else if (state.value.status === 'SECURED') console.warn(`Position ${Position} already has secured ${title.value}`);
     } else {
       if (state.value.status === 'SECURED') {
         state.value.status = 'CONTROLLED';
       } else if (state.value.status === 'CONTROLLED') {
-        state.value.controllingPlayer = player;
+        state.value.controllingPosition = Position;
         state.value.status = 'CONTROLLED';
       } else if (state.value.status === 'UNCONTROLLED') {
-        state.value.controllingPlayer = player;
+        state.value.controllingPosition = Position;
         state.value.status = 'CONTROLLED';
       }
     }
@@ -50,9 +54,10 @@ export function useMinorFaction (minorFactionid: number) {
 
   return {
     minorFaction,
+    title,
     imageUrl,
     statusImageUrl,
-    swayToPlayer,
+    swayToPosition,
     toggleDimished,
   }
 }

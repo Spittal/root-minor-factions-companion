@@ -14,14 +14,15 @@ export default defineComponent({
       minorFaction,
       imageUrl,
       statusImageUrl,
-      swayToPlayer,
+      swayToPosition,
       toggleDimished,
     } = useMinorFaction(props.minorFactionId);
+
     return {
       minorFaction,
       imageUrl,
       statusImageUrl,
-      swayToPlayer,
+      swayToPosition,
       toggleDimished,
     };
   },
@@ -30,11 +31,10 @@ export default defineComponent({
 
 <template>
   <div class="minor-faction">
+    <button @click="swayToPosition(1)">P1</button>
+    <button @click="swayToPosition(2)">P2</button>
     <img class="card" :src="imageUrl">
     <img class="marker" v-if="statusImageUrl" :src="statusImageUrl" />
-    <button @click="swayToPlayer(1)">Sway P1</button>
-    <button @click="swayToPlayer(2)">Sway P2</button>
-    <p>Owned by Player {{ minorFaction.state?.controllingPlayer }}</p>
   </div>
 </template>
 
@@ -43,7 +43,6 @@ export default defineComponent({
   position: relative;
   display: inline-block;
   cursor: pointer;
-  width: 50%;
 
   & .card {
     display: block;
