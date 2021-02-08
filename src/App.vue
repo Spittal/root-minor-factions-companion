@@ -1,11 +1,13 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 import MinorFaction from './minor-faction/MinorFaction.vue';
+import InfluenceDie from './InfluenceDie.vue';
 import { MinorFactionState, useGameState } from './useGameState';
 
 export default defineComponent({
   components: {
     MinorFaction,
+    InfluenceDie,
   },
   setup () {
     const { gameState, addMinorFaction } = useGameState();
@@ -66,12 +68,17 @@ export default defineComponent({
       :minorFactionId="minorFaction.minorFactionId"
     />
   </div>
+
   <div class="uncontrolled-grid">
     <MinorFaction
       v-for="minorFaction in uncontrolledMinorFactions"
       :key="minorFaction.minorFactionId"
       :minorFactionId="minorFaction.minorFactionId"
     />
+  </div>
+
+  <div class="influence-die">
+    <InfluenceDie />
   </div>
 </template>
 
@@ -84,7 +91,7 @@ export default defineComponent({
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   width: 100%;
-  height: 50%;
+  height: 45%;
 
   & *:first-child {
     grid-row-start: 2;
@@ -95,7 +102,7 @@ export default defineComponent({
   }
 
   &.position-1 {
-    top: 50%;
+    top: 55%;
     left: 0;
   }
 
@@ -112,7 +119,7 @@ export default defineComponent({
   top: 50%;
   left: 10%;
   width: 90%;
-  height: auto%;
+  height: auto;
   transform: translate(0, -50%);
   display: flex;
   flex-flow: wrap;
@@ -123,5 +130,14 @@ export default defineComponent({
     width: 50%;
     height: 50%;
   }
+}
+
+.influence-die {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 10%;
+  width: 10%;
 }
 </style>

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { useMinorFaction } from './useMinorFaction';
 
 export default defineComponent({
@@ -18,24 +18,41 @@ export default defineComponent({
       toggleDimished,
     } = useMinorFaction(props.minorFactionId);
 
+    const expanded = ref(false);
+    function toggleExpanded () {
+      expanded.value = !expanded.value;
+    }
+
     return {
       minorFaction,
       imageUrl,
       statusImageUrl,
       swayToPosition,
       toggleDimished,
+      expanded,
+      toggleExpanded
     };
   },
 });
 </script>
 
 <template>
-  <div class="minor-faction">
-    <button @click="swayToPosition(1)">P1</button>
-    <button @click="swayToPosition(2)">P2</button>
+  <div @click="toggleExpanded" class="minor-faction">
     <img class="card" :src="imageUrl">
     <img class="marker" v-if="statusImageUrl" :src="statusImageUrl" />
   </div>
+
+  <teleport v-if="expanded" to="body">
+    <div @click="toggleExpanded" class="modal">
+      <button @click="swayToPosition(2)">Position 2</button>
+      <div class="rotate-wrapper" :class="`-position-${minorFaction.state?.controllingPosition}`">
+        <h2 v-if="minorFaction.state?.controllingPosition">OWNED BY {{ minorFaction.state?.controllingPosition }}</h2>
+        <img class="marker" v-if="statusImageUrl" :src="statusImageUrl" />
+        <img class="card" :src="imageUrl">
+      </div>
+      <button @click="swayToPosition(1)">Position 1</button>
+    </div>
+  </teleport>
 </template>
 
 <style lang="postcss" scoped>
@@ -60,6 +77,36 @@ export default defineComponent({
     transform: translate(50%, -50%);
     border-radius: 100%;
     box-shadow: 0px 4px 3px #777777;
+  }
+}
+
+.modal {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000AA;
+
+  & h2 {
+    color: white;
+  }
+
+  & .marker {
+    width: 30%;
+  }
+
+  & .rotate-wrapper {
+    text-align: center;
+
+    &.-position-2 {
+      transform-origin: center;
+      transform: rotate(180deg);
+    }
   }
 }
 </style>
