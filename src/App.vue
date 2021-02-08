@@ -20,7 +20,11 @@ export default defineComponent({
 </script>
 
 <template>
-  <MinorFaction v-for="minorFaction in gameState.minorFactions" :minorFactionId="minorFaction.minorFactionId" />
+  <MinorFaction
+    v-for="minorFaction in gameState.minorFactions"
+    :key="minorFaction.minorFactionId"
+    :minorFactionId="minorFaction.minorFactionId"
+  />
 </template>
 
 <style lang="postcss">

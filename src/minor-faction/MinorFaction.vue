@@ -34,6 +34,7 @@ export default defineComponent({
     <img class="marker" v-if="statusImageUrl" :src="statusImageUrl" />
     <button @click="swayToPlayer(1)">Sway P1</button>
     <button @click="swayToPlayer(2)">Sway P2</button>
+    <p>Owned by Player {{ minorFaction.state?.controllingPlayer }}</p>
   </div>
 </template>
 
