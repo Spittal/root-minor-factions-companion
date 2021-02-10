@@ -41,9 +41,9 @@ export default defineComponent({
     }
 
     addMinorFaction(1);
-    addMinorFaction(2);
+    addMinorFaction(6);
     addMinorFaction(3);
-    addMinorFaction(4);
+    addMinorFaction(2);
 
     return {
       gameState,

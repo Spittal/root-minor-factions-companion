@@ -47,8 +47,8 @@ export default defineComponent({
       <button @click="swayToPosition(2)">Position 2</button>
       <div class="rotate-wrapper" :class="`-position-${minorFaction.state?.controllingPosition}`">
         <h2 v-if="minorFaction.state?.controllingPosition">OWNED BY {{ minorFaction.state?.controllingPosition }}</h2>
-        <img class="marker" v-if="statusImageUrl" :src="statusImageUrl" />
-        <img class="card" :src="imageUrl">
+        <img class="marker" v-if="statusImageUrl" :src="statusImageUrl" alt="" />
+        <img class="card" :src="imageUrl" alt="">
       </div>
       <button @click="swayToPosition(1)">Position 1</button>
     </div>
